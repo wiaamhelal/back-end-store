@@ -211,18 +211,18 @@ module.exports.sendEmailConfirmCtrl = asyncHandler(async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
-  // const htmlTemplate = `
-  // <div>
-  //   <p>your order ${orderName} has been improved for return you will receve the money around 3 days total amount is ${orderPrice}dhr </p>
-  // </div>
-  // `;
-  // // sending email to the user
-  // await sendEmail(userEmail, "Request return order", htmlTemplate);
+  const htmlTemplate = `
+  <div>
+    <p>your order ${orderName} has been improved for return you will receve the money around 3 days total amount is ${orderPrice}dhr </p>
+  </div>
+  `;
+  // sending email to the user
+  await sendEmail(userEmail, "Request return order", htmlTemplate);
 
-  // const myOrderRecuist = await ReturnOrder.findById(req.body.id);
-  // const publicIds = myOrderRecuist.images?.map((post) => post.publicId);
-  // await cloudinaryReoveMultipleImage(publicIds);
-  // await ReturnOrder.findByIdAndDelete(req.body.id);
+  const myOrderRecuist = await ReturnOrder.findById(req.body.id);
+  const publicIds = myOrderRecuist.images?.map((post) => post.publicId);
+  await cloudinaryReoveMultipleImage(publicIds);
+  await ReturnOrder.findByIdAndDelete(req.body.id);
   await ReturnOrder.findByIdAndUpdate(
     req.body.id,
     {
@@ -255,18 +255,18 @@ module.exports.sendEmailDiclineCtrl = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  // const htmlTemplate = `
-  // <div>
-  //   <p>your order ${orderName} has been rejected because ${retunReason}</p>
-  // </div>
-  // `;
-  // // sending email to the user
-  // await sendEmail(userEmail, "Request return order", htmlTemplate);
+  const htmlTemplate = `
+  <div>
+    <p>your order ${orderName} has been rejected because ${retunReason}</p>
+  </div>
+  `;
+  // sending email to the user
+  await sendEmail(userEmail, "Request return order", htmlTemplate);
 
-  // const myOrderRecuist = await ReturnOrder.findById(req.body.id);
-  // const publicIds = myOrderRecuist.images?.map((post) => post.publicId);
-  // await cloudinaryReoveMultipleImage(publicIds);
-  // await ReturnOrder.findByIdAndDelete(req.body.id);
+  const myOrderRecuist = await ReturnOrder.findById(req.body.id);
+  const publicIds = myOrderRecuist.images?.map((post) => post.publicId);
+  await cloudinaryReoveMultipleImage(publicIds);
+  await ReturnOrder.findByIdAndDelete(req.body.id);
 
   await ReturnOrder.findByIdAndUpdate(
     req.body.id,
