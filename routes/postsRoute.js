@@ -34,7 +34,7 @@ router.route("/get-product-ad-24hours").get(get24ProductsAdsCtrl);
 // /api/posts
 router
   .route("/")
-  .post(verifyToken, photoUpload.array("images", 5), createPostCtrl)
+  .post(verifyToken, photoUpload.array("images", 9), createPostCtrl)
   .get(getAllPostsCtrl);
 
 // /api/posts/max-posts

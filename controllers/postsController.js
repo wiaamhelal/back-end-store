@@ -68,16 +68,57 @@ const { AdFor24Hours } = require("../models/AdFor24Hours");
 // });
 
 module.exports.createPostCtrl = asyncHander(async (req, res) => {
+  // // 1- التحقق من وجود الصور
+  // if (!req.files || req.files.length === 0) {
+  //   return res.status(400).json({ message: "No images provided" });
+  // }
+
+  // // 2- التحقق من صحة البيانات
+  // const { error } = validateCreatePost(req.body);
+  // if (error) {
+  //   return res.status(400).json({ message: error.details[0].message });
+  // }
+
+  // // 3- رفع الصور إلى Cloudinary
+  // const uploadPromises = req.files.map(async (file) => {
+  //   try {
+  //     const imagePath = path.join(__dirname, `../images/${file.filename}`);
+  //     const result = await cloudinaryUploadImage(imagePath);
+  //     fs.unlink(imagePath, (err) => {
+  //       if (err) console.error("Error deleting file:", err);
+  //     });
+  //     return result;
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     throw new Error("Failed to upload image");
+  //   }
+  // });
+
+  // let uploadResults;
+  // try {
+  //   uploadResults = await Promise.all(uploadPromises);
+  // } catch (error) {
+  //   return res.status(500).json({ message: "Image upload failed" });
+  // }
+
+  // // 4- إنشاء المنشور وحفظه في قاعدة البيانات
+  // const images = uploadResults.map((result) => ({
+  //   url: result.secure_url,
+  //   publicId: result.public_id,
+  // }));
+
+  console.log("FILES >>> ", req.files);
+  console.log("BODY >>> ", req.body);
   // 1- التحقق من وجود الصور
   if (!req.files || req.files.length === 0) {
     return res.status(400).json({ message: "No images provided" });
   }
 
   // 2- التحقق من صحة البيانات
-  const { error } = validateCreatePost(req.body);
-  if (error) {
-    return res.status(400).json({ message: error.details[0].message });
-  }
+  // const { error } = validateCreatePost(req.body);
+  // if (error) {
+  //   return res.status(400).json({ message: error.details[0].message });
+  // }
 
   // 3- رفع الصور إلى Cloudinary
   const uploadPromises = req.files.map(async (file) => {
@@ -515,6 +556,43 @@ module.exports.createAdFor24HoursCtrl = asyncHander(async (req, res) => {
 
   // 5- send response to the client
   res.status(201).json(createad);
+});
+module.exports.clearDiscoutCtrl = asyncHander(async (req, res) => {
+  // 1-validation
+  const { error } = validateUpdatePost(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+
+  // 2-get the post from DB and check of the post is exist
+  const post = await Post.findById(req.params.id);
+  if (!post) {
+    res.status(404).json({ message: "post not found" });
+  }
+
+  // 3-check if the post belong to this user
+  if (req.user.id !== post.user.toString()) {
+    return res
+      .status(403)
+      .json({ message: "unauthoraized , you cant update the user" });
+  }
+
+  // 4- update the post
+  const updatePost = await Post.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: {
+        price: req.body.price,
+        oldPrice: req.body.oldPrice,
+      },
+    },
+    { new: true }
+  )
+    .populate("user", ["-password"])
+    .populate("comments");
+
+  // 5- send response to the client
+  res.status(200).json(updatePost);
 });
 
 // create ad
