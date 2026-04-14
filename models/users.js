@@ -31,6 +31,9 @@ const userSchema = new mongoose.Schema(
     orders: {
       type: Array,
     },
+    credit: {
+      type: Array,
+    },
     orderDate: {
       type: Number,
     },

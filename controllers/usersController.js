@@ -66,6 +66,7 @@ module.exports.upadateUserProfileCtrl = asyncHander(async (req, res) => {
         username: req.body.username,
         password: req.body.password,
         bio: req.body.bio,
+        credit: req.body.credit,
       },
     },
     { new: true }

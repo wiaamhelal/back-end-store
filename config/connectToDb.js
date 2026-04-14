@@ -1,15 +1,34 @@
+// const mongoose = require("mongoose");
+
+// const url =
+//   "mongodb+srv://wiaambusiness28:FK25ie.pjX4Mxw@cluster0.zqolu1d.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0";
+// module.exports = async () => {
+//   try {
+//     await mongoose.connect(url, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//       serverSelectionTimeoutMS: 30000, // زيادة المهلة لتفادي timeout
+//     });
+//     console.log("✅ Connected to MongoDB");
+//   } catch (error) {
+//     console.error("❌ Connection to MongoDB failed:", error.message);
+//   }
+// };
+
 const mongoose = require("mongoose");
 
+// const url =
+//   "mongodb+srv://wiaambusiness28:FK25ie.pjX4Mxw@cluster0.zqolu1d.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0/";
+
 const url =
-  "mongodb+srv://wiaambusiness28:3aWtJeOh3kxhmyJu@cluster0.zqolu1d.mongodb.net/blog?retryWrites=true&w=majority";
+  "mongodb+srv://wiaamhilal:EV9J52_WiCc3U2R@cluster0.qovi0kl.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0";
 
 module.exports = async () => {
   try {
     await mongoose.connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 30000, // زيادة المهلة لتفادي timeout
+      serverSelectionTimeoutMS: 30000,
     });
+
     console.log("✅ Connected to MongoDB");
   } catch (error) {
     console.error("❌ Connection to MongoDB failed:", error.message);

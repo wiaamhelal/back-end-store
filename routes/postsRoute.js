@@ -19,6 +19,7 @@ const {
   deleteProductAdCtrl,
   createAdFor24HoursCtrl,
   get24ProductsAdsCtrl,
+  deleteProductAd24Ctrl,
 } = require("../controllers/postsController");
 const photoUpload = require("../middlewares/photoUpload");
 const validateObjedtId = require("../middlewares/validateObjedtId");
@@ -93,8 +94,12 @@ router
 // /api/posts/create-product-ad
 router
   .route("/ad-for-24hours")
-
   .post(verfyTokenAndAdmin, createAdFor24HoursCtrl);
+
+// /api/posts/create-product-ad
+router
+  .route("/ad-for-24hours/:id")
+  .delete(verfyTokenAndAdmin, deleteProductAd24Ctrl);
 
 // /api/posts/delete-ad
 // router

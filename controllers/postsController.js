@@ -601,6 +601,15 @@ module.exports.get24ProductsAdsCtrl = asyncHander(async (req, res) => {
   res.status(200).json(allAds);
 });
 
+module.exports.deleteProductAd24Ctrl = asyncHander(async (req, res) => {
+  const ads = await AdFor24Hours.findById(req.params.id);
+  if (!ads) {
+    return res.status(404).json({ message: "ad not found" });
+  }
+  await AdFor24Hours.findByIdAndDelete(req.params.id);
+  res.status(200).json({ message: "ad has been deleted", adId: ads._id });
+});
+
 // module.exports.deleteProductAdCtrl = asyncHander(async (req, res) => {
 //   const ads = await ProductAd.findById(req.params.id);
 //   if (!ads) {

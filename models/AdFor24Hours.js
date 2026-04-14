@@ -22,13 +22,13 @@ const Ad24HoursSchema = new mongoose.Schema(
   // }
 );
 
-(async () => {
-  await mongoose.connect(
-    "mongodb+srv://wiaambusiness28:3aWtJeOh3kxhmyJu@cluster0.zqolu1d.mongodb.net/blog?retryWrites=true&w=majority"
-  ); // أو connection string الخاص بك
-  await AdFor24Hours.syncIndexes();
-  console.log("✅ TTL index synced successfully");
-})();
+// (async () => {
+//   await mongoose.connect(
+//     "mongodb+srv://wiaambusiness28:3aWtJeOh3kxhmyJu@cluster0.zqolu1d.mongodb.net/blog?retryWrites=true&w=majority"
+//   ); // أو connection string الخاص بك
+//   await AdFor24Hours.syncIndexes();
+//   console.log("✅ TTL index synced successfully");
+// })();
 
 Ad24HoursSchema.index({ createdAt: 1 }, { expireAfterSeconds: 60 * 60 * 24 });
 
