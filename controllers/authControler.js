@@ -55,7 +55,7 @@ module.exports.registerUserCtrl = asyncHander(async (req, res) => {
 });
 
 // login user
-
+// login user
 module.exports.loginUserCtrl = asyncHander(async (req, res) => {
   const { error } = validateLoginUser(req.body);
   if (error) {
